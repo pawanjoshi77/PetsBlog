@@ -17,10 +17,10 @@ namespace PetBlog.Models
         [Required, StringLength(255), Display(Name = "Species")]
         public string PetSpecies { get; set; }
 
-        [Required, StringLength(255), Display(Name = "Pet Size")]
+        [Required, StringLength(255), Display(Name = "Size")]
         public string PetSize { get; set; }
 
-        [Required, Display(Name = "Pet DOB")]
+        [Required, Display(Name = "DateOfBirth")]
         public DateTime PetDOB { get; set; }
 
     }
