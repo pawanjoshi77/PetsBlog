@@ -15,7 +15,7 @@ namespace PetBlog.Models
         public string PetName { get; set; }
 
         [Required, StringLength(255), Display(Name = "Species")]
-        public string Species { get; set; }
+        public string PetSpecies { get; set; }
 
         [Required, StringLength(255), Display(Name = "Pet Size")]
         public string PetSize { get; set; }
