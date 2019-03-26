@@ -15,6 +15,10 @@ namespace PetBlog.Models
         [Required, StringLength(255), Display(Name = "Species Name")]
         public string SpeciesName { get; set; }
 
+        //Species has PetID
+        [ForeignKey("PetID")]
+        public int PetID { get; set; }
+
         //One species to many pets.
         [InverseProperty("Species")]
         public virtual List<Pet> Pets { get; set; }

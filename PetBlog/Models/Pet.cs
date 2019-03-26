@@ -30,5 +30,12 @@ namespace PetBlog.Models
         public int SpeciesID { get; set; }
         //Pet Species
         public virtual Species Species { get; set; }
+
+        //Pet has OwnerID
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+
+        //Pet Owners
+        public virtual Owner Owner { get; set; }
     }
 }
