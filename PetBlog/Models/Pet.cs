@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,14 +15,20 @@ namespace PetBlog.Models
         [Required, StringLength(255), Display(Name = "Pet Name")]
         public string PetName { get; set; }
 
-        [Required, StringLength(255), Display(Name = "Species")]
-        public string PetSpecies { get; set; }
-
         [Required, StringLength(255), Display(Name = "Size")]
         public string PetSize { get; set; }
 
-        [Required, Display(Name = "DateOfBirth")]
+        [Required, Display(Name = "Date Of Birth")]
         public DateTime PetDOB { get; set; }
 
+        public int HasPic { get; set; }
+
+        public string ImgType { get; set; }
+
+        //Pet has species ID
+        [ForeignKey("SpeciesID")]
+        public int SpeciesID { get; set; }
+        //Pet Species
+        public virtual Species Species { get; set; }
     }
 }
