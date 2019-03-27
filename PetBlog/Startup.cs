@@ -30,7 +30,7 @@ namespace PetBlog
                 options.UseSqlServer(Configuration.GetConnectionString("PetBlogConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<PetsBlogContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
