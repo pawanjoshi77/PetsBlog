@@ -1,0 +1,43 @@
+﻿@model PetBlog.Models.Owner
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create a new Owner</h2>
+
+@using (Html.BeginForm("Create", "Owner"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div>
+        <h4>Owner</h4>
+        <hr />
+        @Html.LabelFor(model => model.OwnerName)
+    </div>
+    <div>
+        @Html.EditorFor(model => model.OwnerName)
+        @Html.ValidationMessageFor(model => model.OwnerName)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.OwnerAddress)
+    </div>
+    <div>
+        @Html.EditorFor(model => model.OwnerAddress)
+        @Html.ValidationMessageFor(model => model.OwnerAddress)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.MemberSince)
+    </div>
+    <div>
+        @Html.EditorFor(model => model.MemberSince)
+        @Html.ValidationMessageFor(model => model.MemberSince)
+    </div>
+    <div>
+        <input type="submit" value="Create" />
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+}
+
