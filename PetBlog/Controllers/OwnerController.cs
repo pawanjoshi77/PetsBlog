@@ -36,7 +36,7 @@ namespace PetBlog.Controllers
             {
                 if (user.OwnerID == null) { ViewData["UserHasOwner"] = "False"; }
                 else { ViewData["UserHasOwner"] = user.OwnerID.ToString(); }
-                return View(await db.Owners.ToListAsync());
+                    return View(await db.Owners.ToListAsync());
             }
             else
             {
@@ -51,7 +51,8 @@ namespace PetBlog.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([Bind("OwnerName", "OwnerAddress", "MemberSince")] Owner owner)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind("OwnerId", "OwnerName", "OwnerAddress", "MemberSince")] Owner owner)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +68,7 @@ namespace PetBlog.Controllers
             }
         }
 
-        private async Task<ActionResult> MapUserToOwner(Owner owner)
+        private async Task<IActionResult> MapUserToOwner(Owner owner)
         {
             var user = await GetCurrentUserAync();
             user.owner = owner;
@@ -97,6 +98,10 @@ namespace PetBlog.Controllers
                     return BadRequest(owner_res);
                 }
                 
+            }
+            else
+            {
+                return BadRequest("Unstable Owner Model");
             }
         }
     }
