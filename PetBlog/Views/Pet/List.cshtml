@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PetBlog.Models.Pet>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PetName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PetSize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PetDOB)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HasPic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImgType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpeciesID)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Species)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PetSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PetDOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasPic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeciesID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner.OwnerAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Species.SpeciesName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PetID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PetID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PetID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

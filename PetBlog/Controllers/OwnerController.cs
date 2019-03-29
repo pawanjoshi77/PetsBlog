@@ -44,11 +44,25 @@ namespace PetBlog.Controllers
                 return View(await db.Owners.ToListAsync());
             }
         }
+        // view details when clicked in owners tab
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            //view the details of the owner that you clicked
+            //get the information about the owner
+
+            
+            //passing this information to Views/Owner/Details.cshtml
+            return View(db.Owners.Find(id));
+        }
+
         //Get Owner/Create
         public ActionResult Create()
         {
             return View();
         }
+
+      
 
         [HttpPost]
         [ValidateAntiForgeryToken]
