@@ -1,66 +1,14 @@
 ﻿@model PetBlog.Models.Pet
 
-@{
-    ViewData["Title"] = "Details";
-}
 
 <h2>Details</h2>
 
 <div>
-    <h4>Pet</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PetName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PetName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PetSize)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PetSize)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PetDOB)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PetDOB)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HasPic)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HasPic)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImgType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImgType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SpeciesID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SpeciesID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Owner.OwnerAddress)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Species)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Species.SpeciesName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.PetID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    <h4>Owner</h4>
+
+    @Model.PetName | @Model.Owner | 
+
+    
+
+    </div>
