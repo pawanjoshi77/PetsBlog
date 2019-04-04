@@ -118,5 +118,123 @@ namespace PetBlog.Controllers
                 return BadRequest("Unstable Owner Model");
             }
         }
-    }
+
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new StatusCodeResult(400);
+            }
+            Owner owner = db.Owners.Find(id);
+            if (owner == null)
+            {
+                return NotFound();
+            }
+            var user = await GetCurrentUserAync();
+            if (user == null) return Forbid();
+            if (user.OwnerID != id)
+            {
+                return Forbid();
+            }
+            return View(owner);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind("OwnerId", "OwnerName", "OwnerAddress", "MemberSince")] Owner owner)
+        {
+            var user = await GetCurrentUserAync();
+            if (user == null) return Forbid();
+            if (user.OwnerID != owner.OwnerID)
+            {
+                return Forbid();
+            }
+            if (ModelState.IsValid)
+            {
+                db.Entry(owner).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(owner);
+        }
+
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new StatusCodeResult(400);
+            }
+            var owner = db.Owners.FindAsync(id);
+            if (owner == null)
+            {
+                return NotFound();
+            }
+            var user = await GetCurrentUserAync();
+            if (user == null)
+            {
+                return Forbid();
+            }
+            if (user.OwnerID != id)
+            {
+                return Forbid();
+            }
+            return View(owner);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            Owner owner = await db.Owners.FindAsync(id);
+            var user = await GetCurrentUserAync();
+            if (user.OwnerID != id)
+
+            {
+                return Forbid();
+            }
+            await UnmapUserFromOwner(id);
+            db.Owners.Remove(owner);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> UnmapUserFromOwner(int id)
+
+        {
+            Owner owner = await db.Owners.FindAsync(id);
+            owner.user = null;
+            owner.UserID = "";
+            if (ModelState.IsValid)
+            {
+                db.Entry(owner).State = EntityState.Modified;
+                var owner_res = await db.SaveChangesAsync();
+                if (owner_res == 0)
+                {
+                    return BadRequest(owner_res);
+                }
+                else
+                {
+                    var user = await GetCurrentUserAync();
+                    user.owner = null;
+                    user.OwnerID = null;
+                    var user_res = await _userManager.UpdateAsync(user);
+                    if (user_res == IdentityResult.Success)
+                    {
+                        Debug.WriteLine("User Updated");
+                        return Ok();
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Not able to update the user");
+                        return BadRequest(user_res);
+                    }
+                }
+            }
+
+            else
+            {
+                return BadRequest("Unstable model");
+            }
+        }
+     }
 }
