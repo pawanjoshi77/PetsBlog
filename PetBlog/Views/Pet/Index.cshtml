@@ -1,0 +1,54 @@
+﻿
+@model IEnumerable<PetBlog.Models.Pet>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Pets</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PetName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PetSize)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PetDOB)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.HasPic)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ImgType)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PetName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PetSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PetDOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasPic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImgType)
+        </td>
+
+
+    </tr>
+    }
+</table>
+
