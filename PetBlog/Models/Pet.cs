@@ -9,17 +9,24 @@ namespace PetBlog.Models
 {
     public class Pet
     {
+        
         [Key, ScaffoldColumn(false)]
         public int PetID { get; set; }
 
         [Required, StringLength(255), Display(Name = "Pet Name")]
         public string PetName { get; set; }
 
+        [Required, StringLength(255), Display(Name = "Pet Type")]
+        public string PetType { get; set; }
+
         [Required, StringLength(255), Display(Name = "Size")]
         public string PetSize { get; set; }
 
         [Required, Display(Name = "Date Of Birth")]
         public DateTime PetDOB { get; set; }
+
+        [Required, StringLength(255), Display(Name = "Species Gender")]
+        public string SpeciesGender { get; set; }
 
         public int HasPic { get; set; }
 
