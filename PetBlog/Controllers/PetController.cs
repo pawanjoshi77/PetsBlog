@@ -23,5 +23,29 @@ namespace PetBlog.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View(new Pet());
+        }
+
+        [HttpPost]
+        public IActionResult Add(Pet pet)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View(new Pet());
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Pet pet)
+        {
+            return View();
+        }
     }
 }

@@ -15,6 +15,12 @@ namespace PetBlog.Models
         [Required, StringLength(255), Display(Name = "Species Name")]
         public string SpeciesName { get; set; }
 
+        [Required, StringLength(255), Display(Name = "Species Type")]
+        public string SpeciesType { get; set; }
+
+        [Required, StringLength(255), Display(Name = "Species Gender")]
+        public string SpeciesGender { get; set; }
+
         //Species has PetID
         [ForeignKey("PetID")]
         public int PetID { get; set; }

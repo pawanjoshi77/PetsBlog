@@ -1,0 +1,30 @@
+﻿@model PetBlog.Models.Pet
+@{
+
+}
+
+<h2>Add Pet</h2>
+
+<div>
+    <form asp-controller="Pet" asp-action="Add" method="post">
+        <div>
+            <label>Pet Name</label>
+            <input asp-for="PetName" />
+        </div>
+        <div>
+            <label>Pet Type</label>
+            <input asp-for="PetType" />
+        </div>
+        <div>
+            <label>Pet Size</label>
+            <input asp-for="PetSize" />
+        </div>
+        <div>
+            <label>Pet DOB</label>
+            <input asp-for="PetDOB" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>
