@@ -68,6 +68,15 @@ namespace PetBlog.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("OwnerId", "OwnerName", "OwnerAddress", "MemberSince")] Owner owner)
         {
+            //can I find out if someone is logged in at the time this command is executed?
+            //if not, I don't actually want to create an owner..
+            //if yes, then can I find that user id?
+            //if there is a user and I know the id,
+            //all I need to do is map the owner to the user
+            var user = await GetCurrentUserAync();
+            //user.OwnerID = set this value
+            //owner.UserID = set this value
+
             if (ModelState.IsValid)
             {
                 db.Owners.Add(owner);
@@ -123,12 +132,12 @@ namespace PetBlog.Controllers
         {
             if (id == null)
             {
-                return new StatusCodeResult(400);
+               /// return new StatusCodeResult(400);
             }
             Owner owner = db.Owners.Find(id);
             if (owner == null)
             {
-                return NotFound();
+               // return NotFound();
             }
             var user = await GetCurrentUserAync();
             if (user == null) return Forbid();
