@@ -19,7 +19,7 @@ namespace PetBlog.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
 
-        private async Task<ApplicationUser> GetCurrentUserAync() => await _userManager.GetUserAsync(HttpContext.User);
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
         public OwnerController(PetsBlogContext context, IHostingEnvironment env, UserManager<ApplicationUser> usermanager)
         {
@@ -28,32 +28,65 @@ namespace PetBlog.Controllers
             _userManager = usermanager;
         }
 
+        public async Task<int> GetUserDetails(ApplicationUser user)
+        {
+            if (user == null)
+            {
+                return 0;
+            }
+            var userid = user.Id;
+            if (user.OwnerID == null) return 1;
+            else
+            {
+                return 2;
+            }
+        }
+
         //GET: Owners
         public async Task<ActionResult> Index()
         {
-            var user = await GetCurrentUserAync();
-            if (user != null)
-            {
-                if (user.OwnerID == null) { ViewData["UserHasOwner"] = "False"; }
-                else { ViewData["UserHasOwner"] = user.OwnerID.ToString(); }
-                    return View(await db.Owners.ToListAsync());
-            }
-            else
-            {
-                ViewData["UserhasOwner"] = "None";
-                return View(await db.Owners.ToListAsync());
-            }
-        }
-        // view details when clicked in owners tab
-        [HttpGet]
-        public ActionResult Details(int id)
-        {
-            //view the details of the owner that you clicked
-            //get the information about the owner
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
 
-            
-            //passing this information to Views/Owner/Details.cshtml
-            return View(db.Owners.Find(id));
+            ViewData["UserState"] = userstate;
+            ViewData["UserOwnerID"] = 0; //default to 0
+            if (userstate == 2)
+            {
+                ViewData["UserOwnerID"] = user.OwnerID;
+
+            }
+            return View(await db.Owners.ToListAsync());
+        }
+
+        public ActionResult Show(int id)
+        {
+            //wrapper function. Show will redirect to details.
+            return RedirectToAction("Details/" + id);
+        }
+
+        public async Task<ActionResult> Details(int? id)
+        {
+            //get the current user id for now (proof of concept).
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            ViewData["UserOwnerID"] = 0;
+            if (userstate == 2) ViewData["UserOwnerID"] = user.OwnerID;
+
+            Owner located_owner = await db.Owners.Include(o => o.Pets).SingleOrDefaultAsync(o => o.OwnerID == id);
+            if (located_owner == null)
+            {
+                return NotFound();
+            }
+            //Check the current user's author against the author.
+            //Debug.WriteLine("Asked for user in details. The user is " + user.Id.ToString());
+            //Check what the located author id is
+            //Debug.WriteLine("Asked for located author in details. The located author is" + located_author.AuthorID);
+            //This one only works when we pick meg as the author
+            //Debug.WriteLine("Asked for user's author in details. The user is " + user.author.ToString());
+            //Debug.WriteLine("Asked for user's phone number in details. The phone number is");
+
+            ViewData["UserState"] = userstate;
+            return View(located_owner);
         }
 
         //Get Owner/Create
@@ -73,7 +106,7 @@ namespace PetBlog.Controllers
             //if yes, then can I find that user id?
             //if there is a user and I know the id,
             //all I need to do is map the owner to the user
-            var user = await GetCurrentUserAync();
+            var user = await GetCurrentUserAsync();
             //user.OwnerID = set this value
             //owner.UserID = set this value
 
@@ -93,7 +126,7 @@ namespace PetBlog.Controllers
 
         private async Task<IActionResult> MapUserToOwner(Owner owner)
         {
-            var user = await GetCurrentUserAync();
+            var user = await GetCurrentUserAsync();
             user.owner = owner;
             var user_res = await _userManager.UpdateAsync(user);
             if(user_res == IdentityResult.Success)
@@ -132,14 +165,14 @@ namespace PetBlog.Controllers
         {
             if (id == null)
             {
-               /// return new StatusCodeResult(400);
+               return new StatusCodeResult(400);
             }
             Owner owner = db.Owners.Find(id);
             if (owner == null)
             {
-               // return NotFound();
+               return NotFound();
             }
-            var user = await GetCurrentUserAync();
+            var user = await GetCurrentUserAsync();
             if (user == null) return Forbid();
             if (user.OwnerID != id)
             {
@@ -150,9 +183,9 @@ namespace PetBlog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind("OwnerId", "OwnerName", "OwnerAddress", "MemberSince")] Owner owner)
+        public async Task<ActionResult> Edit([Bind("OwnerID", "OwnerName", "OwnerAddress", "MemberSince")] Owner owner)
         {
-            var user = await GetCurrentUserAync();
+            var user = await GetCurrentUserAsync();
             if (user == null) return Forbid();
             if (user.OwnerID != owner.OwnerID)
             {
@@ -167,27 +200,22 @@ namespace PetBlog.Controllers
             return View(owner);
         }
 
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return new StatusCodeResult(400);
-            }
-            var owner = db.Owners.FindAsync(id);
+            
+            var owner = await db.Owners.FindAsync(id);
             if (owner == null)
             {
                 return NotFound();
             }
-            var user = await GetCurrentUserAync();
-            if (user == null)
+            var user = await GetCurrentUserAsync();
+            var userstate = await GetUserDetails(user);
+            if(userstate == 2)
             {
-                return Forbid();
+                if (id != user.OwnerID) return Forbid();
+                return View(owner);
             }
-            if (user.OwnerID != id)
-            {
-                return Forbid();
-            }
-            return View(owner);
+            return NotFound();
         }
 
         [HttpPost, ActionName("Delete")]
@@ -195,7 +223,7 @@ namespace PetBlog.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Owner owner = await db.Owners.FindAsync(id);
-            var user = await GetCurrentUserAync();
+            var user = await GetCurrentUserAsync();
             if (user.OwnerID != id)
 
             {
@@ -223,7 +251,7 @@ namespace PetBlog.Controllers
                 }
                 else
                 {
-                    var user = await GetCurrentUserAync();
+                    var user = await GetCurrentUserAsync();
                     user.owner = null;
                     user.OwnerID = null;
                     var user_res = await _userManager.UpdateAsync(user);

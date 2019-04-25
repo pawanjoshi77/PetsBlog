@@ -3,23 +3,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Owners</h2>
+<h2>Owners</h2> 
 <div>
     @{ 
-        string id = "";
+        int id = 0;
     }
-    @if ((string)ViewData["UserHasOwner"] == "False")
+    @if ((int) ViewData["UserState"] == 0)
     {
         @Html.ActionLink("Join Us!", "Create")
     }
-    else if ((string)ViewData["UserHasOwner"] == "None")
+    else if ((int)ViewData["UserState"] == 1)
     {
         @Html.ActionLink("Register An Account", "Register", "Account")
     }
     else
     {
-        @Html.ActionLink("Your Profile", "Details/" + (string)ViewData["UserHasOwner"], "Owner")
-        id = (string)ViewData["UserHasOwner"];
+        id = (int)ViewData["UserOwnerID"];
+        @Html.ActionLink("Your Profile", "Details/" + id, "Owner")
+        
     }
 </div>
 <table>
@@ -50,13 +51,13 @@
         </td>
 
         <td>
-            @if (item.OwnerID.ToString() == id)
+            @if (item.OwnerID == id)
             {
                 @Html.ActionLink("Edit", "Edit", new { id = item.OwnerID})
                 @Html.Raw(" | ")
             }
             @Html.ActionLink("Details", "Details", new { id = item.OwnerID})
-            @if(item.OwnerID.ToString() == id)
+            @if(item.OwnerID == id)
             {
                 @Html.Raw(" | ")
                 @Html.ActionLink("Delete", "Delete", new { id = item.OwnerID})
@@ -65,4 +66,7 @@
     </tr>
 }
 </table>
+<div class="recadd">
+    @Html.ActionLink("New Owner", "Create", "Owner")
+</div>
 
