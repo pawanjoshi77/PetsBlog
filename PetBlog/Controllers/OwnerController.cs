@@ -77,13 +77,13 @@ namespace PetBlog.Controllers
             {
                 return NotFound();
             }
-            //Check the current user's author against the author.
+            //Check the current user's owner against the owner.
             //Debug.WriteLine("Asked for user in details. The user is " + user.Id.ToString());
-            //Check what the located author id is
-            //Debug.WriteLine("Asked for located author in details. The located author is" + located_author.AuthorID);
-            //This one only works when we pick meg as the author
-            //Debug.WriteLine("Asked for user's author in details. The user is " + user.author.ToString());
-            //Debug.WriteLine("Asked for user's phone number in details. The phone number is");
+            //Check what the located owner id is
+            //Debug.WriteLine("Asked for located owner in details. The located owner is" + located_owner.OwnerID);
+            //This one only works when we pick msg as the owner
+            //Debug.WriteLine("Asked for user's owner in details. The user is " + user.owner.ToString());
+            
 
             ViewData["UserState"] = userstate;
             return View(located_owner);
@@ -106,7 +106,7 @@ namespace PetBlog.Controllers
             //if yes, then can I find that user id?
             //if there is a user and I know the id,
             //all I need to do is map the owner to the user
-            var user = await GetCurrentUserAsync();
+             var user = await GetCurrentUserAsync();
             //user.OwnerID = set this value
             //owner.UserID = set this value
 
