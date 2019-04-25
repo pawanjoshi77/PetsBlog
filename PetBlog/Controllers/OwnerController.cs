@@ -14,6 +14,7 @@ namespace PetBlog.Controllers
 {
     public class OwnerController : Controller
     {
+        //References are from Christine's Blog https://bitbucket.org/salamanderburger/5204-blog-aspcore/src/dc83cc28a2d7?at=master
         private readonly PetsBlogContext db;
         private readonly IHostingEnvironment _env;
 

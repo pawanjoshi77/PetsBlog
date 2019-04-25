@@ -9,15 +9,19 @@
 {
     @Html.AntiForgeryToken()
     
-    <div>
+    <div class="form-horizontal">
         <h4>Owner</h4>
         <hr />
+
+    <div class="form-group">
         @Html.LabelFor(model => model.OwnerName)
-    </div>
-    <div>
+    
+    <div class="">
         @Html.EditorFor(model => model.OwnerName)
         @Html.ValidationMessageFor(model => model.OwnerName)
     </div>
+    </div>
+
     <div>
         @Html.LabelFor(model => model.OwnerAddress)
     </div>
@@ -32,12 +36,14 @@
         @Html.EditorFor(model => model.MemberSince)
         @Html.ValidationMessageFor(model => model.MemberSince)
     </div>
+    </div>
+
     <div>
         <input type="submit" value="Create" />
     </div>
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
-
+    
 }
 
