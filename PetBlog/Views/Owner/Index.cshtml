@@ -5,22 +5,16 @@
 
 <h2>Owners</h2> 
 <div class="recadd">
-    @{ 
-        int id = 0;
-    }
-    @if ((int) ViewData["UserState"] == 0)
-    {
-        @Html.ActionLink("Join Us!", "Create")
-    }
-    else if ((int)ViewData["UserState"] == 1)
-    {
-        @Html.ActionLink("Register An Account", "Register", "Account")
-    }
-    else
-    {
-        id = (int)ViewData["UserOwnerID"];
-        @Html.ActionLink("Your Profile", "Details/" + id, "Owner")
-        
+    @{
+        //check if the user is an author or not.
+        //UserState
+        //0 => No User
+        //1 => has user has no author
+        switch (ViewData["UserState"])
+        {
+            case 0: @Html.ActionLink("Register An Account", "Register", "Account") break;
+            case 1: @Html.ActionLink("Join Us!", "Create", "Owner") break;
+        }
     }
 </div>
 <table class="table">
@@ -51,13 +45,13 @@
         </td>
 
         <td>
-            @if (item.OwnerID == id)
+            @if (item.OwnerID == (int)ViewData["UserOwnerID"])
             {
                 @Html.ActionLink("Edit", "Edit", new { id = item.OwnerID})
                 @Html.Raw(" | ")
             }
             @Html.ActionLink("Details", "Details", new { id = item.OwnerID})
-            @if(item.OwnerID == id)
+            @if(item.OwnerID == (int)ViewData["UserOwnerID"])
             {
                 @Html.Raw(" | ")
                 @Html.ActionLink("Delete", "Delete", new { id = item.OwnerID})
@@ -66,7 +60,5 @@
     </tr>
 }
 </table>
-<div class="recadd">
-    @Html.ActionLink("New Owner", "Create", "Owner")
-</div>
+
 
