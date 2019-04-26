@@ -14,32 +14,36 @@
         <hr />
 
     <div class="form-group">
-        @Html.LabelFor(model => model.OwnerName)
+        @Html.LabelFor(model => model.OwnerName, htmlAttributes: new { @class = "control-label col-md-2"})
     
-    <div class="">
-        @Html.EditorFor(model => model.OwnerName)
-        @Html.ValidationMessageFor(model => model.OwnerName)
+    <div class="col-md-4">
+        @Html.EditorFor(model => model.OwnerName, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.ValidationMessageFor(model => model.OwnerName, "", new { @class = "text-danger"})
     </div>
     </div>
 
-    <div>
-        @Html.LabelFor(model => model.OwnerAddress)
+    <div class="form-group">
+        @Html.LabelFor(model => model.OwnerAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div>
+            @Html.EditorFor(model => model.OwnerAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OwnerAddress, "", new { @class = "text-danger" })
+        </div>
     </div>
-    <div>
-        @Html.EditorFor(model => model.OwnerAddress)
-        @Html.ValidationMessageFor(model => model.OwnerAddress)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.MemberSince)
-    </div>
-    <div>
-        @Html.EditorFor(model => model.MemberSince)
-        @Html.ValidationMessageFor(model => model.MemberSince)
+    <div class="form-group">
+        @Html.LabelFor(model => model.MemberSince, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div>
+            @Html.EditorFor(model => model.MemberSince, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MemberSince, "", new { @class = "text-danger" })
+        </div>
     </div>
     </div>
 
-    <div>
-        <input type="submit" value="Create" />
+    <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" />
+            </div>
     </div>
     <div>
         @Html.ActionLink("Back to List", "Index")
