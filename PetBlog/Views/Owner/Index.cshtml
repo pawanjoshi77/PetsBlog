@@ -3,31 +3,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Owners</h2>
-<div>
-    @{ 
-        string id = "";
-    }
-    @if ((string)ViewData["UserHasOwner"] == "False")
-    {
-        @Html.ActionLink("Join Us!", "Create")
-    }
-    else if ((string)ViewData["UserHasOwner"] == "None")
-    {
-        @Html.ActionLink("Register An Account", "Register", "Account")
-    }
-    else
-    {
-        @Html.ActionLink("Your Profile", "Details/" + (string)ViewData["UserHasOwner"], "Owner")
-        id = (string)ViewData["UserHasOwner"];
+<h2>Owners</h2> 
+<div class="recadd">
+    @{
+        //check if the user is an owner or not.
+        //UserState
+        //0 => No User
+        //1 => user has no owner
+        switch (ViewData["UserState"])
+        {
+            case 0: @Html.ActionLink("Register An Account", "Register", "Account") break;
+            case 1: @Html.ActionLink("Join Us!", "Create", "Owner") break;
+        }
     }
 </div>
-<table>
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.OwnerName)
         </th>
-       
+
         <th>
             @Html.DisplayNameFor(model => model.OwnerAddress)
         </th>
@@ -36,33 +31,42 @@
             @Html.DisplayNameFor(model => model.MemberSince)
         </th>
     </tr>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OwnerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OwnerAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MemberSince)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberSince)
+            </td>
 
-        <td>
-            @if (item.OwnerID.ToString() == id)
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.OwnerID})
-                @Html.Raw(" | ")
-            }
-            @Html.ActionLink("Details", "Details", new { id = item.OwnerID})
-            @if(item.OwnerID.ToString() == id)
-            {
-                @Html.Raw(" | ")
-                @Html.ActionLink("Delete", "Delete", new { id = item.OwnerID})
-            }
-        </td>
-    </tr>
-}
+            <td>
+                @if (item.OwnerID == (int)ViewData["UserOwnerID"])
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OwnerID })
+                    @Html.Raw(" | ")
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.OwnerID })
+                @if (item.OwnerID == (int)ViewData["UserOwnerID"])
+                {
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OwnerID })
+                }
+
+            </td>
+
+        </tr>
+    }
+    <div class="recadd">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Create New Owner", "Create", "Owner")
+        }
+    </div>
 </table>
+
 

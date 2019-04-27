@@ -17,7 +17,7 @@ namespace PetBlog.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
 
-        private async Task<ApplicationUser> GetCurrentUserAync() => await _userManager.GetUserAsync(HttpContext.User);
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
         public IActionResult Index()
         {
