@@ -108,6 +108,8 @@ namespace PetBlog.Controllers
             //if there is a user and I know the id,
             //all I need to do is map the owner to the user
              var user = await GetCurrentUserAsync();
+            if (user == null) return Forbid();
+
             //user.OwnerID = set this value
             //owner.UserID = set this value
 
