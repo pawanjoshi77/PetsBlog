@@ -28,5 +28,12 @@ namespace PetBlog.Models
         //One species to many pets.
         [InverseProperty("Species")]
         public virtual List<Pet> Pets { get; set; }
+
+        //Pet Owners
+        public virtual Owner Owner { get; set; }
+
+        //Pet has OwnerID
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
     }
 }

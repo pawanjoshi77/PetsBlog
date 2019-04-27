@@ -6,22 +6,26 @@
 <h2>Add Pet</h2>
 
 <div>
-    <form asp-controller="Pet" asp-action="Add" method="post">
+    <form action="/Pet/Add" method="post">
         <div>
             <label>Pet Name</label>
-            <input asp-for="PetName" />
+            <input name="PetName" />
         </div>
         <div>
             <label>Pet Type</label>
-            <input asp-for="PetType" />
+            <input name="PetType" />
         </div>
         <div>
             <label>Pet Size</label>
-            <input asp-for="PetSize" />
+            <input name="PetSize" />
         </div>
         <div>
             <label>Pet DOB</label>
-            <input asp-for="PetDOB" />
+            <input name="PetDOB" />
+        </div>
+        <div>
+            <label>Pet Picture</label>
+            <input type="file" name="ImgType" />
         </div>
         <div>
             <input type="submit" value="Submit" />

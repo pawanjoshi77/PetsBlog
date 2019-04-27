@@ -26,7 +26,7 @@ namespace PetBlog.Models
         public DateTime PetDOB { get; set; }
 
         [Required, StringLength(255), Display(Name = "Species Gender")]
-        public string SpeciesGender { get; set; }
+        public string PetGender { get; set; }
 
         public int HasPic { get; set; }
 
@@ -35,6 +35,7 @@ namespace PetBlog.Models
         //Pet has species ID
         [ForeignKey("SpeciesID")]
         public int SpeciesID { get; set; }
+
         //Pet Species
         public virtual Species Species { get; set; }
 

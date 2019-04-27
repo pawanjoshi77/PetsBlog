@@ -1,33 +1,41 @@
 ﻿@model PetBlog.Models.Pet
+
 @{
+    ViewData["Title"] = "Edit";
 
 }
 
 <h2>Edit Pet</h2>
 
 <div>
-    <form asp-controller="Home" asp-action="Edit" method="post">
+    <form action="/Pet/Edit" method="post">
         <div>
             <label>Pet Name</label>
-            <input asp-for="PetName" />
+            <input type="text" name="PetName" />
         </div>
         <div>
             <label>Pet Type</label>
-            <input asp-for="PetType" />
+            <input name="PetType" />
         </div>
         <div>
             <label>Pet Size</label>
-            <input asp-for="PetSize" />
+            <input name="PetSize" />
         </div>
         <div>
             <label>Pet DOB</label>
-            <input asp-for="PetDOB" />
+            <input name="PetDOB" />
         </div>
         <div>
-            <input type="submit" value="Submit"/>
+            <label>Pet Picture</label>
+            <input type="file" name="ImgType" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
         </div>
     </form>
 </div>
-
+<div>
+    <a href="Index">Back to List</a>
+</div>
 
     

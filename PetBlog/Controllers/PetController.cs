@@ -37,7 +37,7 @@ namespace PetBlog.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
             return View(new Pet());
         }
@@ -47,5 +47,23 @@ namespace PetBlog.Controllers
         {
             return View();
         }
+       // [HttpPost]
+    //    [ValidateAntiForgeryToken]
+    //    public async Task<ActionResult> Add([Bind("PetId", "PetName", "PetType", "PetDOB", "PetPicture")] Pet pet)
+      //  {
+        //    if (ModelState.IsValid)
+          //  {
+            //    db.Pet.Add(pet);
+              //  db.SaveChanges();
+               // var res = await MapUserToOwner(et);
+
+//                return RedirectToAction("Index");
+            
+  //          else
+    //        {
+      //              return RedirectToAction("Index");
+        //        }
+          //  }
+        //}
     }
 }
