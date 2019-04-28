@@ -25,8 +25,8 @@ namespace PetBlog.Models
         [Required, Display(Name = "Date Of Birth")]
         public DateTime PetDOB { get; set; }
 
-        [Required, StringLength(255), Display(Name = "Species Gender")]
-        public string SpeciesGender { get; set; }
+        [Required, StringLength(255), Display(Name = "Pet Gender")]
+        public string PetGender { get; set; }
 
         public int HasPic { get; set; }
 

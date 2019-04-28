@@ -21,6 +21,7 @@ namespace PetBlog.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Species> Species { get; set; }
+        public object Pet { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {

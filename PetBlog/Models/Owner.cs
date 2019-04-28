@@ -30,5 +30,10 @@ namespace PetBlog.Models
         public string UserID { get; set; }
 
         public virtual ApplicationUser user { get; set; }
-}
+
+        public static implicit operator Owner(Pet v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

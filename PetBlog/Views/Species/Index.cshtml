@@ -1,11 +1,59 @@
-﻿@model PetBlog.Models.Species
+﻿@model IEnumerable<PetBlog.Models.Species>
+
 @{
+    ViewData["Title"] = "Index";
 }
 
-<h2>Species</h2>
+<h2>Index</h2>
 
-<div>
-    <ul>
-        <li><a asp-area="" asp-controller="Species" asp-action="Add">Add</a></li>
-    </ul>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpeciesName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpeciesType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpeciesGender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PetID)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeciesName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeciesType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeciesGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PetID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner.OwnerAddress)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SpeciesID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SpeciesID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SpeciesID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

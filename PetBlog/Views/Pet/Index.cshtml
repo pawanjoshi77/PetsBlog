@@ -1,12 +1,11 @@
-﻿
-@model PetBlog.Models.Pet
+﻿@model PetBlog.Models.Pet
+
 @{
+    ViewData["Title"] = "Index";
 }
 
-<h2>Pets</h2>
+<h2>Index</h2>
 
-<div>
-    <ul>
-        <li><a asp-area="" asp-controller="Pet" asp-action="Add">Add</a></li>
-    </ul>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
