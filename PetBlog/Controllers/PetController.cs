@@ -70,7 +70,7 @@ namespace PetBlog.Controllers
             return View(pet);
         }
 
-        // GET: Pet/Edit/5
+        // GET: Pet/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -122,7 +122,7 @@ namespace PetBlog.Controllers
             return View(pet);
         }
 
-        // GET: Pet/Delete/5
+        // GET: Pet/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,7 +142,7 @@ namespace PetBlog.Controllers
             return View(pet);
         }
 
-        // POST: Pet/Delete/5
+        // POST: Pet/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -26,7 +26,7 @@ namespace PetBlog.Controllers
             return View(await petsBlogContext.ToListAsync());
         }
 
-        // GET: Species/Details/5
+        // GET: Species/Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -53,8 +53,6 @@ namespace PetBlog.Controllers
         }
 
         // POST: Species/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SpeciesName,SpeciesType,SpeciesGender,PetID,OwnerID")] Species species)
@@ -69,7 +67,7 @@ namespace PetBlog.Controllers
             return View(species);
         }
 
-        // GET: Species/Edit/5
+        // GET: Species/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,9 +84,7 @@ namespace PetBlog.Controllers
             return View(species);
         }
 
-        // POST: Species/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Species/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SpeciesName,SpeciesType,SpeciesGender,PetID,OwnerID")] Species species)
@@ -122,7 +118,7 @@ namespace PetBlog.Controllers
             return View(species);
         }
 
-        // GET: Species/Delete/5
+        // GET: Species/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +137,7 @@ namespace PetBlog.Controllers
             return View(species);
         }
 
-        // POST: Species/Delete/5
+        // POST: Species/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
